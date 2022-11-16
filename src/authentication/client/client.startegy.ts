@@ -19,6 +19,6 @@ export class JwtClientStrategy extends PassportStrategy(Strategy, 'JwtClient') {
 
   async validate(payload: any) {
     // need update
-    return payload;
+    return payload; // strategy set req.user= payload by default if validated
   }
 }
