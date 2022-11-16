@@ -7,7 +7,7 @@ import { JwtClientAuthGuard } from './client.guard';
 export class ClientAuthController {
   constructor(private readonly clientAuthService: ClientAuthService) {}
 
-  @Get('/sign-in')
+  @Get('/login')
   sign(): Promise<any> {
     return this.clientAuthService.generateToken({
       name: 'ali',
