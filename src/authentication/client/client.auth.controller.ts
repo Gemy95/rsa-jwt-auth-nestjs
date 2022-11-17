@@ -1,7 +1,9 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { Public } from '../shared/decorator/public.decorator';
 import { ClientAuthService } from './client.auth.service';
 import { AccessTokenAuthGuard } from '../shared/guards/access.token.guard';
+import { RefreshTokenAuthGuard } from '../shared/guards/refresh.token.guard';
+import { CurrentUser } from '../shared/decorator/user.dcorator';
 
 @Controller('/client')
 export class ClientAuthController {
@@ -16,7 +18,7 @@ export class ClientAuthController {
   }
 
   @UseGuards(AccessTokenAuthGuard)
-  @Get('/checkToken')
+  @Post('/checkToken')
   checkToken(): { message: string } {
     return { message: 'success' };
   }
@@ -25,5 +27,11 @@ export class ClientAuthController {
   @Get('/public')
   checkPublic(): { message: string } {
     return { message: 'success' };
+  }
+
+  @UseGuards(RefreshTokenAuthGuard)
+  @Post('refresh')
+  refreshTokens(@CurrentUser() user: any) {
+    return this.clientAuthService.refreshTokens(user);
   }
 }

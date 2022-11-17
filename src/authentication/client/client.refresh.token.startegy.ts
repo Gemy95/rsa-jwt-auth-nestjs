@@ -19,7 +19,7 @@ export class RefreshTokenClientStrategy extends PassportStrategy(
   }
 
   async validate(payload: any) {
-    // need update
-    return payload; // strategy set req.user= payload by default if validated
+    const { iat, exp, aud, iss, sub, ...data } = payload;
+    return data; // strategy set req.user= payload by default if validated
   }
 }

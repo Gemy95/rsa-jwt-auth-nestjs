@@ -2,7 +2,6 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { readFileSync } from 'fs';
 
 @Injectable()
 export class AccessTokenClientStrategy extends PassportStrategy(
@@ -19,7 +18,6 @@ export class AccessTokenClientStrategy extends PassportStrategy(
   }
 
   async validate(payload: any) {
-    // need update
     return payload; // strategy set req.user= payload by default if validated
   }
 }

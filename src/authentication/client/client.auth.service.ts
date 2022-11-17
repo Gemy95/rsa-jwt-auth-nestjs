@@ -11,4 +11,10 @@ export class ClientAuthService {
   ) {
     return this.authService.generateTokens(AuthUserType.Client, payload);
   }
+
+  refreshTokens(
+    payload: any, // need update IClient | IAdmin etc...
+  ) {
+    return this.authService.generateTokens(AuthUserType.Client, payload);
+  }
 }
