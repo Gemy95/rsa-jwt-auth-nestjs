@@ -1,16 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { AuthService } from '../shared/auth.service';
+import { AuthUserType } from '../shared/constants/auth.types.enum';
 
 @Injectable()
 export class ClientAuthService {
-  constructor(private jwtService: JwtService) {}
+  constructor(private authService: AuthService) {}
 
-  async generateToken(
-    payload: any, //need update
-  ): Promise<any> {
-    const accessToken = await this.jwtService.sign(payload); // JwtModule assigne keys and options into sign method
-    return {
-      accessToken,
-    };
+  generateTokens(
+    payload: any, // need update IClient | IAdmin etc...
+  ) {
+    return this.authService.generateTokens(AuthUserType.Client, payload);
   }
 }

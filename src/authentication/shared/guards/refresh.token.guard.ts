@@ -7,13 +7,15 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import { IS_PUBLIC_KEY } from '../../decorator/public.decorator';
+import { IS_PUBLIC_KEY } from '../decorator/public.decorator';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { WsException } from '@nestjs/websockets';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
-export class JwtClientAuthGuard extends AuthGuard('JwtClient') {
+export class RefreshTokenAuthGuard extends AuthGuard([
+  'RefreshTokenClientStrategy',
+]) {
   constructor(private reflector: Reflector, private jwtService: JwtService) {
     super();
   }
