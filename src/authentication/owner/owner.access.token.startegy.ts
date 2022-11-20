@@ -4,21 +4,20 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class RefreshTokenClientStrategy extends PassportStrategy(
+export class AccessTokenOwnerStrategy extends PassportStrategy(
   Strategy,
-  'RefreshTokenClientStrategy',
+  'AccessTokenOwnerStrategy',
 ) {
   constructor(private configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('REFRESH_TOKEN_CLIENT_PUBLIC_KEY'),
+      secretOrKey: configService.get<string>('ACCESS_TOKEN_OWNER_PUBLIC_KEY'),
       algorithms: ['RS256'],
     });
   }
 
   async validate(payload: any) {
-    const { iat, exp, aud, iss, sub, ...data } = payload;
-    return data; // strategy set req.user= payload by default if validated
+    return payload; // strategy set req.user= payload by default if validated
   }
 }

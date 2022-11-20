@@ -13,7 +13,7 @@ export class AuthService {
 
   generateTokens(
     authUserType: AuthUserType,
-    payload: any, // need update IClient | IAdmin etc...
+    payload: any, // need update IClient | IAdmin | IOwner etc...
   ): { accessToken: string; refreshToken: string } {
     const accessTokenOptions: JwtSignOptions = getJwtModuleOptions(
       this.configService.get<string>(

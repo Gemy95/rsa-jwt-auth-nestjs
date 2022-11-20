@@ -15,6 +15,8 @@ import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class RefreshTokenAuthGuard extends AuthGuard([
   'RefreshTokenClientStrategy',
+  'RefreshTokenAdminStrategy',
+  'RefreshTokenOwnerStrategy',
 ]) {
   constructor(private reflector: Reflector, private jwtService: JwtService) {
     super();

@@ -4,15 +4,15 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class RefreshTokenClientStrategy extends PassportStrategy(
+export class RefreshTokenAdminStrategy extends PassportStrategy(
   Strategy,
-  'RefreshTokenClientStrategy',
+  'RefreshTokenAdminStrategy',
 ) {
   constructor(private configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>('REFRESH_TOKEN_CLIENT_PUBLIC_KEY'),
+      secretOrKey: configService.get<string>('REFRESH_TOKEN_ADMIN_PUBLIC_KEY'),
       algorithms: ['RS256'],
     });
   }
