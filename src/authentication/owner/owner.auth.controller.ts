@@ -1,14 +1,14 @@
-import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { Public } from '../shared/decorator/public.decorator';
 import { OwnerAuthService } from './owner.auth.service';
-import { AccessTokenAuthGuard } from '../shared/guards/access.token.guard';
-import { RefreshTokenAuthGuard } from '../shared/guards/refresh.token.guard';
 import { CurrentUser } from '../shared/decorator/user.dcorator';
+import { RefreshTokenAuthGuard } from '../shared/guards/refresh.token.guard';
 
 @Controller('/owner')
 export class OwnerAuthController {
   constructor(private readonly ownerAuthService: OwnerAuthService) {}
 
+  @Public()
   @Get('/login')
   sign(): any {
     return this.ownerAuthService.generateTokens({
@@ -17,7 +17,6 @@ export class OwnerAuthController {
     });
   }
 
-  @UseGuards(AccessTokenAuthGuard)
   @Post('/checkToken')
   checkToken(): { message: string } {
     return { message: 'success' };
@@ -29,6 +28,7 @@ export class OwnerAuthController {
     return { message: 'success' };
   }
 
+  @Public()
   @UseGuards(RefreshTokenAuthGuard)
   @Post('refresh')
   refreshTokens(@CurrentUser() user: any) {
